@@ -17,7 +17,7 @@ public class StoreController {
     @GetMapping()
     public String listStores(Model model) {
         model.addAttribute("stores", storeService.getAllStore());
-        return "storeList";
+        return "listStore";
     }
 
     @GetMapping("/add")
@@ -29,7 +29,7 @@ public class StoreController {
     @PostMapping("add")
     public String addStore(@ModelAttribute("store") Store store) {
         storeService.saveStore(store);
-        return "redirect:/stores";
+        return "redirect:/api/stores";
     }
 
     @GetMapping("/edit/{id}")
@@ -41,13 +41,13 @@ public class StoreController {
     @PostMapping("/edit/{id}")
     public String editStore(@PathVariable("id") Integer id, @ModelAttribute("store") Store store) {
         storeService.updateStore(id, store);
-        return "redirect:/stores";
+        return "redirect:/api/stores";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteStore(@PathVariable("id") Integer id) {
         storeService.deleteStoreById(id);
-        return "redirect:/stores";
+        return "redirect:/api/stores";
     }
 
 }
