@@ -21,6 +21,13 @@
             <label for="phone" class="form-label">Telefon</label>
             <input type="text" class="form-control" id="phone" th:field="*{phone}" required>
         </div>
+        <div class="mb-3">
+            <label for="user" class="form-label">Foydalanuvchi</label>
+            <select class="form-control" id="user" th:field="*{user}" required>
+                <option value="">Foydalanuvchi tanlang</option>
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Saqlash</button>
         <a th:href="@{/api/stores}" class="btn btn-secondary">Orqaga</a>
     </form>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Do'konni tahrirlash</title>
     <link href="/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/styles.css}" rel="stylesheet"> <!-- Tashqi CSS fayl -->
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -21,6 +21,13 @@
         <div class="mb-3">
             <label for="phone" class="form-label">Telefon</label>
             <input type="text" class="form-control" id="phone" th:field="*{phone}" required>
+        </div>
+        <div class="mb-3">
+            <label for="user" class="form-label">Foydalanuvchi</label>
+            <select class="form-control" id="user" th:field="*{user}" required>
+                <option value="">Foydalanuvchi tanlang</option>
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+            </select>
         </div>
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary">Saqlash</button>
