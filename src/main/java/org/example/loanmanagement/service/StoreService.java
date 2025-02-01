@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
+
 
     public Store saveStore(Store store) {
         return storeRepository.save(store);
@@ -20,10 +22,8 @@ public class StoreService {
         return storeRepository.findAll();
     }
 
-    public Store getStoreById(Integer id) {
-        return storeRepository.findById(id).orElseThrow(
-                ()->new RuntimeException("Store with id " + id + " not found")
-        );
+    public Optional<Store> getStoreById(Integer id){
+        return storeRepository.findById(id);
     }
 
     public void deleteStoreById(Integer id) {
