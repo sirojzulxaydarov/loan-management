@@ -19,7 +19,7 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
-    private List<Store> getAllStore() {
+    public List<Store> getAllStore() {
         return storeRepository.findAll();
     }
 
