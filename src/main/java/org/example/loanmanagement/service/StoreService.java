@@ -15,12 +15,23 @@ public class StoreService {
     private StoreRepository storeRepository;
 
 
-    public Store saveStore(Store store) {
-        return storeRepository.save(store);
+    public void saveStore(Store store) {
+        storeRepository.save(store);
     }
 
     public List<Store> getAllStore() {
         return storeRepository.findAll();
+    }
+
+    public void updateStore(Integer storeId, Store store) {
+        Optional<Store> storeOptional = storeRepository.findById(storeId);
+        if (storeOptional.isPresent()) {
+            Store storeToUpdate = storeOptional.get();
+            storeToUpdate.setName(store.getName());
+            storeToUpdate.setAddress(store.getAddress());
+            storeToUpdate.setPhone(store.getPhone());
+            storeRepository.save(storeToUpdate);
+        }
     }
 
     public Optional<Store> getStoreById(Integer id) {

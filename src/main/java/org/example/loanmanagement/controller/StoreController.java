@@ -5,8 +5,7 @@ import org.example.loanmanagement.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +18,34 @@ public class StoreController {
 
     @GetMapping()
     public String listStores(Model model) {
-        List<Store> stores=storeService.getAllStore();
-        model.addAttribute("stores", stores);
+        model.addAttribute("stores", storeService.getAllStore());
         return "storeList";
     }
+
+    @GetMapping("/add")
+    public String addStore(Model model) {
+        model.addAttribute("store", new Store());
+        return "addStore";
+    }
+
+    @PostMapping("add")
+    public String addStore(@ModelAttribute("store") Store store) {
+        storeService.saveStore(store);
+        return "redirect:/stores";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editStore(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("store", storeService.getStoreById(id));
+        return "editStore";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editStore(@PathVariable("id") Integer id, @ModelAttribute("store") Store store) {
+        storeService.updateStore(id,store);
+        return "redirect:/stores";
+    }
+
+
+
 }
