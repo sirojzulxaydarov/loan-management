@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/api/stores")
 public class StoreController {
@@ -42,10 +40,14 @@ public class StoreController {
 
     @PostMapping("/edit/{id}")
     public String editStore(@PathVariable("id") Integer id, @ModelAttribute("store") Store store) {
-        storeService.updateStore(id,store);
+        storeService.updateStore(id, store);
         return "redirect:/stores";
     }
 
-
+    @GetMapping("/delete/{id}")
+    public String deleteStore(@PathVariable("id") Integer id) {
+        storeService.deleteStoreById(id);
+        return "redirect:/stores";
+    }
 
 }
