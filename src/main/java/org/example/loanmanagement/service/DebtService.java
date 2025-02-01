@@ -25,8 +25,13 @@ public class DebtService {
         return debtRepository.save(debt);
     }
 
+    public Debt getDebtById(Integer id) {
+        return debtRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Debt not found with id " + id));
+    }
+
     public Debt updateDebt(Integer id, Debt debtDetails){
-        Debt debt = debtRepository.findById(id).get();
+        Debt debt = getDebtById(id);
         debt.setAmount(debtDetails.getAmount());
         debt.setDate(debtDetails.getDate());
         debt.setDescription(debtDetails.getDescription());
