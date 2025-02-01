@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class StoreService {
+
     @Autowired
     private StoreRepository storeRepository;
 
@@ -18,11 +19,11 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
-    private List<Store> getAllStore(){
+    private List<Store> getAllStore() {
         return storeRepository.findAll();
     }
 
-    public Optional<Store> getStoreById(Integer id){
+    public Optional<Store> getStoreById(Integer id) {
         return storeRepository.findById(id);
     }
 

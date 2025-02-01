@@ -15,9 +15,13 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String firstName;
+
     private String lastName;
+
     private String phoneNumber;
+
     private String address;
 
     @ManyToOne

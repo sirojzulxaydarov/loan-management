@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class DebtService {
+
     @Autowired
     private DebtRepository debtRepository;
 
@@ -17,11 +18,11 @@ public class DebtService {
         return debtRepository.findAll();
     }
 
-    public List<Debt> findByCustomer(Integer id){
+    public List<Debt> findByCustomer(Integer id) {
         return debtRepository.findByCustomerId(id);
     }
 
-    public Debt createDebt(Debt debt){
+    public Debt createDebt(Debt debt) {
         return debtRepository.save(debt);
     }
 
@@ -30,7 +31,7 @@ public class DebtService {
                 .orElseThrow(() -> new RuntimeException("Debt not found with id " + id));
     }
 
-    public Debt updateDebt(Integer id, Debt debtDetails){
+    public Debt updateDebt(Integer id, Debt debtDetails) {
         Debt debt = getDebtById(id);
         debt.setAmount(debtDetails.getAmount());
         debt.setDate(debtDetails.getDate());
@@ -39,7 +40,13 @@ public class DebtService {
 
     }
 
-    public void deleteDebt(Integer id){
+    public void deleteDebt(Integer id) {
         debtRepository.deleteById(id);
+    }
+
+    public List<Debt> getDebtsByCustomerId(Integer customerId) {
+        return debtRepository.findAll().stream()
+                .filter(debt -> debt.getCustomer().getId().equals(customerId))
+                .toList();
     }
 }

@@ -24,7 +24,7 @@ public class Debt {
 
     private LocalDate date;
 
-    private Boolean isPaid=false;
+    private Boolean isPaid = false;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
