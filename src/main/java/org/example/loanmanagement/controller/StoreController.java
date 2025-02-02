@@ -32,7 +32,7 @@ public class StoreController {
         return "addStore";
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public String addStore(@ModelAttribute("store") Store store, Model model) {
         try {
             // Foydalanuvchini tanlash (misol uchun, birinchi foydalanuvchini tanlaymiz)
