@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mijozlar ro'yxati</title>
+    <link href="/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Mijozlar ro'yxati</h1>
+    <a th:href="@{/api/customers/add}" class="btn btn-primary mb-3">Yangi mijoz qo'shish</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ism</th>
+            <th>Familiya</th>
+            <th>Telefon</th>
+            <th>Manzil</th>
+            <th>Harakatlar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.address}"></td>
+            <td>
+                <a th:href="@{/api/customers/edit/{id}(id=${customer.id})}" class="btn btn-warning btn-sm">Tahrirlash</a>
+                <a th:href="@{/api/customers/delete/{id}(id=${customer.id})}" class="btn btn-danger btn-sm">O'chirish</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

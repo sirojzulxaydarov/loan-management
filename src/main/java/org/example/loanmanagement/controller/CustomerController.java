@@ -2,6 +2,7 @@ package org.example.loanmanagement.controller;
 
 import org.example.loanmanagement.entity.Customer;
 import org.example.loanmanagement.service.CustomerService;
+import org.example.loanmanagement.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +17,19 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private StoreService storeService;
+
     @GetMapping
     public String listCustomers(Model model) {
         model.addAttribute("customers", customerService.getAllCustomers());
-        return "listCustomers";
+        return "listCustomer";
     }
 
     @GetMapping("/add")
     public String addCustomer(Model model) {
         model.addAttribute("customer", new Customer());
+        model.addAttribute("store", storeService.getAllStore());
         return "addCustomer";
     }
 
@@ -36,7 +41,7 @@ public class CustomerController {
             return "redirect:/api/customers/";
         }catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
-            return "addCustomer";
+            return "redirect:/api/customers/";
         }
     }
 
