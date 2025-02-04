@@ -22,9 +22,8 @@ public class Store {
 
     private String phone;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 
 }
