@@ -44,7 +44,25 @@ public class CustomerService {
         return customerRepository.findById(id);
     }
 
+    public void updateCustomer(Integer customerId,Customer customer) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            Customer customerToUpdate = customerOptional.get();
 
+            //Yangilanish
+            customerToUpdate.setFirstName(customer.getFirstName());
+            customerToUpdate.setLastName(customer.getLastName());
+            customerToUpdate.setAddress(customer.getAddress());
+            customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
+            customerToUpdate.setStore(customer.getStore());
+            customerRepository.save(customerToUpdate);
+        }else {
+            throw new IllegalArgumentException("Customer not found");
+        }
+    }
 
+    public void deleteCustomer(Integer customerId) {
+        customerRepository.deleteById(customerId);
+    }
 
 }
