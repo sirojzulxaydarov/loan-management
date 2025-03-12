@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.loanmanagement.enums.Role;
 
 @Entity
 @Table(name = "users")
@@ -15,12 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @Column(unique = true)
-    private String email;
-
+    @Column(nullable = false)
     private String password;
 
-    private String role; // ADMIN, STOREOWNER
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
