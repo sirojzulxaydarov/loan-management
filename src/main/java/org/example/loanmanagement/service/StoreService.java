@@ -1,22 +1,22 @@
 package org.example.loanmanagement.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.loanmanagement.dto.StoreDto;
 import org.example.loanmanagement.entity.Store;
 import org.example.loanmanagement.entity.User;
 import org.example.loanmanagement.repository.StoreRepository;
 import org.example.loanmanagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class StoreService {
 
-    @Autowired
-    private StoreRepository storeRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final StoreRepository storeRepository;
+
+    private final UserRepository userRepository;
 
     public Store createStore(StoreDto storeDto) {
 

@@ -1,5 +1,6 @@
 package org.example.loanmanagement.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.loanmanagement.dto.AuthResponseDto;
 import org.example.loanmanagement.dto.LoginDto;
 import org.example.loanmanagement.dto.RegisterDto;
@@ -7,19 +8,18 @@ import org.example.loanmanagement.entity.User;
 import org.example.loanmanagement.enums.Role;
 import org.example.loanmanagement.repository.UserRepository;
 import org.example.loanmanagement.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtil jwtUtil;
 
     public AuthResponseDto register(RegisterDto request) {
         User user = new User();
