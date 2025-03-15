@@ -15,7 +15,6 @@ import java.util.Optional;
 public class StoreService {
 
     private final StoreRepository storeRepository;
-
     private final UserRepository userRepository;
 
     public Store createStore(StoreDto storeDto) {
@@ -42,10 +41,7 @@ public class StoreService {
             storeDto.setPhone(store.get().getPhone());
             storeDto.setUserId(store.get().getUser().getId());
             return storeDto;
-        }else throw new RuntimeException("Store not found");
-
-
-
+        } else throw new RuntimeException("Store not found");
 
 
     }
