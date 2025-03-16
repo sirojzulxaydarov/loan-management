@@ -17,7 +17,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/add")
-    public ResponseEntity<CustomerDto> addCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Customer> addCustomer(@RequestBody CustomerDto customerDto) {
         return ResponseEntity.ok(customerService.addCustomer(customerDto));
     }
 
@@ -25,8 +25,6 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> getCustomerByStore(@PathVariable Integer storeId) {
         return ResponseEntity.ok(customerService.getCustomersByStore(storeId));
     }
-
-
 
 
 }

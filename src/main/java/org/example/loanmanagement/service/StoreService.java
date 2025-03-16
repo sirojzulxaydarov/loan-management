@@ -16,6 +16,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     public Store createStore(StoreDto storeDto) {
 
@@ -42,8 +43,16 @@ public class StoreService {
             storeDto.setUserId(store.get().getUser().getId());
             return storeDto;
         } else throw new RuntimeException("Store not found");
-
-
     }
+
+    public Store getCurrentStore() {
+        User currentUser = userService.getCurrentUser();
+        Optional<Store> store = storeRepository.findByUserId(currentUser.getId());
+        if (store.isEmpty()) {
+            throw new RuntimeException("Store not found");
+        }
+        return store.get();
+    }
+
 
 }

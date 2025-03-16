@@ -7,11 +7,13 @@ import org.example.loanmanagement.entity.User;
 import org.example.loanmanagement.enums.Role;
 import org.example.loanmanagement.repository.UserRepository;
 import org.example.loanmanagement.security.JwtUtil;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -42,5 +45,15 @@ public class UserService {
         return new AuthResponseDto(token);
     }
 
+    public User getCurrentUser() {
+
+        UserDetails authenticatedUser = authService.getAuthenticatedUser();
+        Optional<User> optionalUser = userRepository.findByUsername(authenticatedUser.getUsername());
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException(authenticatedUser.getUsername());
+        }
+        return optionalUser.get();
+
+    }
 
 }

@@ -4,11 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.loanmanagement.dto.CustomerDto;
 import org.example.loanmanagement.entity.Customer;
+import org.example.loanmanagement.entity.Store;
 import org.example.loanmanagement.repository.CustomerRepository;
-import org.example.loanmanagement.repository.StoreRepository;
-import org.example.loanmanagement.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,20 +16,19 @@ import java.util.List;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final StoreRepository storeRepository;
-    private final UserRepository userRepository;
+    private final StoreService storeService;
 
-    public CustomerDto addCustomer(CustomerDto customerDto) {
-        return null;
-    }
+    public Customer addCustomer(CustomerDto customerDto) {
 
-    private String getCurrentUsername() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        } else {
-            return principal.toString();
-        }
+        Store currentStore = storeService.getCurrentStore();
+        Customer customer = Customer.builder()
+                .firstName(customerDto.getFirstName())
+                .lastName(customerDto.getLastName())
+                .phoneNumber(customerDto.getPhoneNumber())
+                .address(customerDto.getAddress())
+                .store(currentStore)
+                .build();
+        return customerRepository.save(customer);
     }
 
     public List<Customer> getCustomersByStore(Integer storeId) {

@@ -8,6 +8,8 @@ import org.example.loanmanagement.entity.User;
 import org.example.loanmanagement.enums.Role;
 import org.example.loanmanagement.repository.UserRepository;
 import org.example.loanmanagement.security.JwtUtil;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,10 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user.getUsername());
         return new AuthResponseDto(token);
+    }
+
+    public UserDetails getAuthenticatedUser() {
+        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 }
