@@ -8,6 +8,7 @@ import org.example.loanmanagement.entity.User;
 import org.example.loanmanagement.enums.Role;
 import org.example.loanmanagement.repository.UserRepository;
 import org.example.loanmanagement.security.JwtUtil;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,8 +46,16 @@ public class AuthService {
         return new AuthResponseDto(token);
     }
 
-    public UserDetails getAuthenticatedUser() {
-        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String getAuthenticatedUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }else{
+            throw new RuntimeException("User not found");
+        }
+
     }
 
 }
